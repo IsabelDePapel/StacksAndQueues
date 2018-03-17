@@ -1,7 +1,7 @@
 import nodes
 
 
-class Queue_SLL:
+class QueueSLL:
     """Queue class implemented as singly linked list."""
 
     def __init__(self):
@@ -103,7 +103,7 @@ class Queue_SLL:
         return curr_max
 
 
-class Queue_DLL:
+class QueueDLL:
     """Queue class implemented as doubly linked list."""
 
     def __init__(self):

@@ -4,7 +4,7 @@ MAX_SIZE = 6  # num items queue will hold + 1 (for placeholder)
 
 
 class QueueArray(object):
-    """Queue class implemented using an array. Doesn't allow overwriting data."""
+    """Queue class implemented using an array. Doesn't allow overwriting."""
 
     def __init__(self):
         self._lst = [None] * (MAX_SIZE)

@@ -3,7 +3,7 @@ import nodes
 
 # can't do this with singly linked list, bc always need prev node
 # to pop from the back. Lose O(1) time for popping.
-class Stack_SLL:
+class StackSLL:
     """Stack class implemented as singly linked list."""
 
     def __init__(self):
@@ -37,7 +37,7 @@ class Stack_SLL:
         pass
 
 
-class Stack_DLL:
+class StackDLL:
     """Stack class implemented as doubly linked list."""
 
     def __init__(self):

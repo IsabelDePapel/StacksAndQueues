@@ -7,12 +7,12 @@ class TestQueueSLLClass(unittest.TestCase):
     """Test singly linked list queue class functionality."""
 
     def setUp(self):
-        self.empty_q = ql.Queue_SLL()
+        self.empty_q = ql.QueueSLL()
 
-        self.small_q = ql.Queue_SLL()
+        self.small_q = ql.QueueSLL()
         self.small_q.enqueue(2)
 
-        self.medium_q = ql.Queue_SLL()
+        self.medium_q = ql.QueueSLL()
         self.medium_q.enqueue(2)
         self.medium_q.enqueue(4)
         self.medium_q.enqueue(6)
@@ -81,12 +81,12 @@ class TestQueueDLLClass(unittest.TestCase):
     """Test doubly linked list queue class functionality."""
 
     def setUp(self):
-        self.empty_q = ql.Queue_DLL()
+        self.empty_q = ql.QueueDLL()
 
-        self.small_q = ql.Queue_DLL()
+        self.small_q = ql.QueueDLL()
         self.small_q.enqueue(2)
 
-        self.medium_q = ql.Queue_DLL()
+        self.medium_q = ql.QueueDLL()
         self.medium_q.enqueue(2)
         self.medium_q.enqueue(4)
         self.medium_q.enqueue(6)
@@ -122,7 +122,9 @@ class TestQueueDLLClass(unittest.TestCase):
 
 
 class TestQueueArrayClass(unittest.TestCase):
-    """Test functionality of queue class implemented using list with fixed size."""
+    """
+    Test functionality of queue class implemented using list of fixed size.
+    """
 
     def setUp(self):
         self.empty_q = qa.QueueArray()
@@ -188,7 +190,7 @@ class TestQueueArrayClass(unittest.TestCase):
     def test_size(self):
         self.assertEqual(self.empty_q.size(), 0)
         self.assertEqual(self.medium_q.size(), 3)
-        
+
         self.medium_q.enqueue(8)
         self.medium_q.enqueue(10)
         self.assertEqual(self.medium_q.size(), 5)
@@ -203,7 +205,7 @@ class TestQueueArrayClass(unittest.TestCase):
 
         self.medium_q.dequeue()
         self.assertEqual(self.medium_q.front(), 4)
-        
+
 
 if __name__ == '__main__':
     unittest.main()

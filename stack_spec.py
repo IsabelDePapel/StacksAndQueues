@@ -7,12 +7,12 @@ class TestStackLLClass(unittest.TestCase):
     """Test Stack class functionality."""
 
     def setUp(self):
-        self.empty_stack = ls.Stack_DLL()
+        self.empty_stack = ls.StackDLL()
 
-        self.small_stack = ls.Stack_DLL()
+        self.small_stack = ls.StackDLL()
         self.small_stack.push(2)
 
-        self.medium_stack = ls.Stack_DLL()
+        self.medium_stack = ls.StackDLL()
         self.medium_stack.push(2)
         self.medium_stack.push(4)
         self.medium_stack.push(6)
