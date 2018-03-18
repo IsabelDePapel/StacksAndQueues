@@ -44,6 +44,9 @@ class StackDLL:
         self._tail = None
 
     def __str__(self):
+        if self.empty():
+            return "empty"
+
         s = ""
 
         current = self._tail
