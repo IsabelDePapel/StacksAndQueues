@@ -1,4 +1,5 @@
 import nodes
+from stack_ll import StackDLL as Stack
 
 
 class QueueSLL:
@@ -199,3 +200,74 @@ class QueueDLL:
             current = current.next_node
 
         return curr_max
+
+
+class QueueUsingStacks:
+    """
+    Queue implemented using 2 stacks. NOT O(1) time for en/dequeue.
+    
+    One stack will always be empty.
+    """
+
+    def __init__(self):
+        self._stack1 = Stack()
+        self._stack2 = Stack()  # this stack will always be empty
+
+    def __str__(self):
+        return str(self._stack1)
+
+    # time: O(2n)
+    # space: O(n) because there are two stacks, but only one of them will be
+    # full at a given time (or both will be half full) and the stack is using
+    # a linked list. If implemented as an array, then O(2n)
+    def enqueue(self, value):
+        """Add value to end of queue. NOT O(1) time."""
+        if self.empty():
+            self._stack1.push(value)
+            return
+
+        # reverse values in stack
+        while not self._stack1.empty():
+            self._stack2.push(self._stack1.pop())
+
+        # push value to empty stack and push vals from 2nd stack
+        self._stack1.push(value)
+
+        while not self._stack2.empty():
+            self._stack1.push(self._stack2.pop())
+
+    def dequeue(self):
+        """
+        Return value from front of queue.
+
+        Raise error if queue is already empty.
+        """
+        if self.empty():
+            raise IndexError('dequeue from empty queue')
+
+        return self._stack1.pop()
+
+    # time: O(1)
+    def empty(self):
+        """Return whether queue is empty."""
+        return self._stack1.empty()
+
+    # time: O(n)
+    def size(self):
+        return self._stack1.size()
+
+    # time: O(1)
+    def front(self):
+        if self.empty():
+            return None
+
+        val = self._stack1.pop()
+        self._stack1.push(val)
+
+        return val
+
+    def min(self):
+        return self._stack1.min()
+
+    def max(self):
+        return self._stack1.max()

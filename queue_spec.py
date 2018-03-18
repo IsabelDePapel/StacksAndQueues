@@ -206,6 +206,111 @@ class TestQueueArrayClass(unittest.TestCase):
         self.medium_q.dequeue()
         self.assertEqual(self.medium_q.front(), 4)
 
+    def test_min(self):
+        self.assertIsNone(self.empty_q.min())
+        self.assertEqual(self.small_q.min(), 2)
+        self.assertEqual(self.medium_q.min(), 2)
+
+        # test min with no cycle
+        self.medium_q.dequeue()
+        self.assertEqual(self.medium_q.min(), 4)
+
+        # test min with cycle
+        self.medium_q.dequeue()
+        self.medium_q.enqueue(12)
+        self.medium_q.enqueue(8)
+        self.medium_q.enqueue(0)
+
+        self.assertEqual(str(self.medium_q), "6 -> 12 -> 8 -> 0")
+        self.assertEqual(self.medium_q.min(), 0)
+
+    def test_max(self):
+        self.assertIsNone(self.empty_q.max())
+        self.assertEqual(self.small_q.max(), 2)
+        self.assertEqual(self.medium_q.max(), 6)
+
+        # test max with no cycle
+        self.medium_q.enqueue(8)
+        self.assertEqual(self.medium_q.max(), 8)
+
+        # test max with cycle
+        self.medium_q.dequeue()
+        self.medium_q.enqueue(0)
+        self.medium_q.enqueue(12)
+
+        self.assertEqual(str(self.medium_q), "4 -> 6 -> 8 -> 0 -> 12")
+        self.assertEqual(self.medium_q.max(), 12)
+
+        self.medium_q.dequeue()
+        self.medium_q.enqueue(60)
+        self.assertEqual(self.medium_q.max(), 60)
+
+
+class TestQueueUsingStacksClass(unittest.TestCase):
+    """Test Queue class implemented using 2 stacks."""
+
+    def setUp(self):
+        self.empty_q = ql.QueueUsingStacks()
+
+        self.small_q = ql.QueueUsingStacks()
+        self.small_q.enqueue(2)
+
+        self.medium_q = ql.QueueUsingStacks()
+        self.medium_q.enqueue(2)
+        self.medium_q.enqueue(4)
+        self.medium_q.enqueue(6)
+
+    def test_empty(self):
+        self.assertTrue(self.empty_q.empty())
+        self.assertFalse(self.small_q.empty())
+
+        self.small_q.dequeue()
+        self.assertTrue(self.small_q.empty())
+
+    def test_enqueue(self):
+        self.assertEqual(str(self.empty_q), "empty")
+        self.assertEqual(str(self.small_q), "2")
+        self.assertEqual(str(self.medium_q), "2 <- 4 <- 6")
+
+        self.medium_q.dequeue()
+        self.medium_q.enqueue(8)
+        self.assertEqual(str(self.medium_q), "4 <- 6 <- 8")
+
+    def test_dequeue(self):
+        with self.assertRaises(IndexError):
+            self.empty_q.dequeue()
+
+        self.assertEqual(self.small_q.dequeue(), 2)
+        self.assertEqual(self.medium_q.dequeue(), 2)
+        self.assertEqual(self.medium_q.dequeue(), 4)
+        self.assertEqual(self.medium_q.dequeue(), 6)
+
+        with self.assertRaises(IndexError):
+            self.medium_q.dequeue()
+
+    def test_size(self):
+        self.assertEqual(self.empty_q.size(), 0)
+        self.assertEqual(self.small_q.size(), 1)
+        self.assertEqual(self.medium_q.size(), 3)
+
+    def test_front(self):
+        self.assertIsNone(self.empty_q.front())
+        self.assertEqual(self.small_q.front(), 2)
+        self.assertEqual(self.medium_q.front(), 2)
+
+        self.medium_q.dequeue()
+        self.assertEqual(self.medium_q.front(), 4)
+
+    # this takes stack implementation, which is tested separately
+    # double checking functions are called
+    def test_min(self):
+        self.assertIsNone(self.empty_q.min())
+        self.assertEqual(self.medium_q.min(), 2)
+
+    def test_max(self):
+        self.assertIsNone(self.empty_q.max())
+        self.assertEqual(self.medium_q.max(), 6)
+
 
 if __name__ == '__main__':
     unittest.main()
